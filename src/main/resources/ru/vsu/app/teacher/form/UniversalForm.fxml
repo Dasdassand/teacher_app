@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.Universal">
+   <children>
+      <Label fx:id="label" layoutX="216.0" layoutY="14.0" text="Выбор" />
+      <ChoiceBox fx:id="box" layoutX="14.0" layoutY="32.0" prefHeight="38.0" prefWidth="441.0" />
+      <TextArea fx:id="area" layoutX="14.0" layoutY="78.0" prefHeight="395.0" prefWidth="441.0" />
+      <Button fx:id="save" layoutX="20.0" layoutY="485.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" text="Сохранить" />
+      <Button fx:id="back" layoutX="352.0" layoutY="485.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" text="Назад" />
+   </children>
+</AnchorPane>

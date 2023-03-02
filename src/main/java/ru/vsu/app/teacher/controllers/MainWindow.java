@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -77,6 +76,23 @@ public class MainWindow {
         test.setOnAction(actionEvent -> {
             if (checkChoice()){
                 GlobalMethods.openWindow("Работа с тестом","form/Test.fxml","form/title.png", test);
+            }else {
+                GlobalMethods.generateAlert("Не выбран взвод", Alert.AlertType.ERROR);
+            }
+        });
+
+        studentsButton.setOnAction(actionEvent -> {
+            if (checkChoice()){
+                GlobalMethods.openWindow("Просмотр успеваемости","form/UniversalForm.fxml","form/title.png", studentsButton);
+                TMPData.flagUniversal = true;
+            }else {
+                GlobalMethods.generateAlert("Не выбран взвод", Alert.AlertType.ERROR);
+            }
+        });
+        platoonButton.setOnAction(actionEvent -> {
+            if (checkChoice()){
+                GlobalMethods.openWindow("Просмотр успеваемости","form/UniversalForm.fxml","form/title.png", platoonButton);
+                TMPData.flagUniversal = false;
             }else {
                 GlobalMethods.generateAlert("Не выбран взвод", Alert.AlertType.ERROR);
             }
