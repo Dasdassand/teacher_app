@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -73,6 +74,16 @@ public class MainWindow {
                 throw new RuntimeException(e);
             }
         });
+        test.setOnAction(actionEvent -> {
+            if (checkChoice()){
+                GlobalMethods.openWindow("Работа с тестом","form/Test.fxml","form/title.png", test);
+            }else {
+                GlobalMethods.generateAlert("Не выбран взвод", Alert.AlertType.ERROR);
+            }
+        });
+    }
+    private boolean checkChoice(){
+        return !(platoons.getValue() == null);
     }
 
 }
