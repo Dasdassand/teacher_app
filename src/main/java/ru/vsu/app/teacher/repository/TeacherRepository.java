@@ -13,11 +13,11 @@ public class TeacherRepository extends BaseRepository {
         super.addValue("INSERT INTO Teacher(name, password) VALUE ('" + value[0] + "', '" + value[1] + "');");
     }
 
-    public boolean auth(@NotNull String... value) throws SQLException, ClassNotFoundException {
+    public Integer auth(@NotNull String... value) throws SQLException, ClassNotFoundException {
        @NotNull var res = super.getResultSet(
                 "Select * From Teacher Where name = " + "'" + value[0] + "'"
                         + "AND password = " + "'" + value[1] + "'"
         );
-       return res.next();
+       return res.next() ? res.getInt(1) : -1 ;
     }
 }

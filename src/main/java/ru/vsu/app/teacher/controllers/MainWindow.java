@@ -1,15 +1,20 @@
 package ru.vsu.app.teacher.controllers;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import ru.vsu.app.teacher.repository.TeacherRepository;
+import ru.vsu.app.teacher.tempory.TMPData;
 
 public class MainWindow {
-
+    private final TeacherRepository repository = new TeacherRepository();
     @FXML
     private ResourceBundle resources;
 
@@ -20,29 +25,53 @@ public class MainWindow {
     private Button platoonButton;
 
     @FXML
-    private ChoiceBox<?> platoons;
-
-    @FXML
-    private TableColumn<?, ?> students;
+    private ChoiceBox<String> platoons;
 
     @FXML
     private Button studentsButton;
 
     @FXML
-    private TableView<?> tableStudent;
-
-    @FXML
     private Button test;
 
     @FXML
-    void initialize() {
-        assert platoonButton != null : "fx:id=\"platoonButton\" was not injected: check your FXML file 'Untitled'.";
-        assert platoons != null : "fx:id=\"platoons\" was not injected: check your FXML file 'Untitled'.";
-        assert students != null : "fx:id=\"students\" was not injected: check your FXML file 'Untitled'.";
-        assert studentsButton != null : "fx:id=\"studentsButton\" was not injected: check your FXML file 'Untitled'.";
-        assert tableStudent != null : "fx:id=\"tableStudent\" was not injected: check your FXML file 'Untitled'.";
-        assert test != null : "fx:id=\"test\" was not injected: check your FXML file 'Untitled'.";
+    private TextArea textStudent;
 
+    @FXML
+    void initialize() throws SQLException, ClassNotFoundException {
+        assert platoonButton != null : "fx:id=\"platoonButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert platoons != null : "fx:id=\"platoons\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert studentsButton != null : "fx:id=\"studentsButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert test != null : "fx:id=\"test\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        var pl = repository.getResultSet("SELECT * FROM platoon_teacher WHERE teacher_id = " + TMPData.teacherID + ";");
+        List<Integer> platoonIDList = new ArrayList<>();
+        while (pl.next()) {
+            platoonIDList.add(pl.getInt(1));
+        }
+        List<String> platoonName = new ArrayList<>();
+        for (Integer id :
+                platoonIDList) {
+            pl = repository.getResultSet("SELECT platoon FROM platoon WHERE id = " + id + ";");
+            pl.next();
+            platoonName.add(pl.getString(1));
+        }
+        pl.close();
+        repository.close();
+        platoons.getItems().addAll(platoonName);
+        platoons.setOnAction(actionEvent -> {
+            String student = "";
+            try {
+               var pli = repository.getResultSet("Select id From platoon Where platoon = " + platoons.getValue() + ";");
+                pli.next();
+                int tmpID = pli.getInt(1);
+                pli = repository.getResultSet("Select name from student where platoon_id = " + tmpID +";");
+                while (pli.next()){
+                    student += pli.getString(1) + '\n';
+                }
+                textStudent.setText(student);
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 }
