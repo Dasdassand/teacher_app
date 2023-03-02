@@ -23,18 +23,19 @@ import java.util.Properties;
     private final Properties properties;
 
 
-    private void openSession() throws SQLException {
+    private void openSession() throws SQLException, ClassNotFoundException {
+       // Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(properties.getProperty("url_db"), properties.getProperty("name"),
                 properties.getProperty("password"));
         statement = connection.createStatement();
     }
 
-    public ResultSet getResultSet(String query) throws SQLException {
+    public ResultSet getResultSet(String query) throws SQLException, ClassNotFoundException {
         openSession();
         return statement.executeQuery(query);
     }
 
-    public void addValue(String query) throws SQLException {
+    public void addValue(String query) throws SQLException, ClassNotFoundException {
         openSession();
         statement.execute(query);
     }

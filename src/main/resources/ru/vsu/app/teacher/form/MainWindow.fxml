@@ -6,7 +6,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="544.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.MainWindow">
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="544.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.MainWindow">
    <children>
       <ChoiceBox fx:id="platoon" layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="516.0" />
       <TableView fx:id="students" layoutX="14.0" layoutY="70.0" prefHeight="485.0" prefWidth="333.0">
@@ -18,4 +19,4 @@
       <Button fx:id="studentsButton" layoutX="387.0" layoutY="262.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="128.0" text="Успеваемость &#10;курасанта" textAlignment="CENTER" />
       <Button fx:id="test" layoutX="387.0" layoutY="453.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="128.0" text="Работа с тестом" />
    </children>
-</fx:root>
+</VBox>

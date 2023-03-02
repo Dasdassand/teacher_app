@@ -22,14 +22,14 @@ public class Authorization {
 
     @FXML
     void initialize(){
-        password.setOnAction(actionEvent -> {
+        auth.setOnAction(actionEvent -> {
             try {
                 if (repository.auth(login.getText(), password.getText())){
                     openWindow("Главное окно","form/MainWindow.fxml","form/title.png",auth);
                 }else {
                 generateAlert("Введены неверные данные или заполнены не все поля", Alert.AlertType.ERROR);
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         });
