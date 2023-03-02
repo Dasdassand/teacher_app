@@ -6,17 +6,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.layout.VBox?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="544.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.MainWindow">
    <children>
-      <ChoiceBox fx:id="platoon" layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="516.0" />
-      <TableView fx:id="students" layoutX="14.0" layoutY="70.0" prefHeight="485.0" prefWidth="333.0">
+      <TableView fx:id="tableStudent" layoutX="14.0" layoutY="58.0" prefHeight="426.0" prefWidth="330.0">
         <columns>
-          <TableColumn prefWidth="332.0" text="Список курсантов" />
+          <TableColumn fx:id="students" prefWidth="329.0" text="Курсанты" />
         </columns>
       </TableView>
-      <Button fx:id="platoonButton" layoutX="387.0" layoutY="70.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="128.0" text="Успеваемость &#10;     взвода" textAlignment="CENTER" />
-      <Button fx:id="studentsButton" layoutX="387.0" layoutY="262.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="128.0" text="Успеваемость &#10;курасанта" textAlignment="CENTER" />
-      <Button fx:id="test" layoutX="387.0" layoutY="453.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="128.0" text="Работа с тестом" />
+      <ChoiceBox fx:id="platoons" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="577.0" />
+      <Button fx:id="platoonButton" layoutX="404.0" layoutY="75.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="142.0" text="Успеваемость &#10;взвода" textAlignment="CENTER" />
+      <Button fx:id="studentsButton" layoutX="404.0" layoutY="238.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="142.0" text="Успеваемость&#10; студента" textAlignment="CENTER" />
+      <Button fx:id="test" layoutX="404.0" layoutY="414.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="142.0" text="Работа с тестами" />
    </children>
-</VBox>
+</AnchorPane>
