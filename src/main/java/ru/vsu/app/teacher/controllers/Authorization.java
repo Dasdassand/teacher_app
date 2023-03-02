@@ -22,6 +22,8 @@ public class Authorization {
 
     @FXML
     void initialize(){
+        login.setOnMouseClicked(mouseEvent -> login.setText(""));
+        password.setOnMouseClicked(mouseEvent -> password.setText(""));
         auth.setOnAction(actionEvent -> {
             try {
                 if (repository.auth(login.getText(), password.getText())){
