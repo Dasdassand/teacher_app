@@ -55,7 +55,6 @@ public class MainWindow {
             platoonName.add(pl.getString(1));
         }
         pl.close();
-        repository.close();
         platoons.getItems().addAll(platoonName);
         platoons.setOnAction(actionEvent -> {
             String student = "";
@@ -68,6 +67,8 @@ public class MainWindow {
                     student += pli.getString(1) + '\n';
                 }
                 textStudent.setText(student);
+                pli.close();
+                TMPData.platoonID = tmpID;
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
