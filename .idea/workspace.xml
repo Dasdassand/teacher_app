@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42fb6a7-c5d5-470b-b929-2cffbdb6196c" name="Changes" comment="add test form">
+    <list default="true" id="d42fb6a7-c5d5-470b-b929-2cffbdb6196c" name="Changes" comment="add">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/tempory/TMPData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/tempory/TMPData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/Universal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/Universal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +68,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/network" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/other" />
       <recent name="$PROJECT_DIR$/src/main/resources/ru/vsu/app/teacher/form" />
     </key>
   </component>
@@ -85,8 +86,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="junrar-0.7.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/other/junrar-0.7.jar" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -99,6 +106,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.junrar-0.7.jar" />
         <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Docker.docker: Compose Deployment" />
       </list>
@@ -112,7 +120,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677666734297</updated>
-      <workItem from="1677666735438" duration="19482000" />
+      <workItem from="1677666735438" duration="21061000" />
+      <workItem from="1677758266712" duration="310000" />
+      <workItem from="1677850131686" duration="500000" />
+      <workItem from="1678338947519" duration="953000" />
     </task>
     <task id="LOCAL-00001" summary="int">
       <created>1677669496832</created>
@@ -177,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677752553017</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add">
+      <created>1677755472580</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677755472580</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,19 +217,11 @@
     <MESSAGE value="add network beta" />
     <MESSAGE value="add auth" />
     <MESSAGE value="fix" />
-    <MESSAGE value="add" />
     <MESSAGE value="add test form" />
-    <option name="LAST_COMMIT_MESSAGE" value="add test form" />
+    <MESSAGE value="add" />
+    <option name="LAST_COMMIT_MESSAGE" value="add" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/Authorization.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/teacher$.ic" NAME=" Coverage Results" MODIFIED="1677850512559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import lombok.Data;
 import ru.vsu.app.teacher.entity.Student;
 import ru.vsu.app.teacher.repository.TeacherRepository;
 import ru.vsu.app.teacher.tempory.TMPData;
@@ -49,13 +50,13 @@ public class Universal {
             List<Student> students = new ArrayList<>();
             label.setText("Выберите студента");
             var pl = repository.getResultSet("Select id,name from student where platoon_id = " + TMPData.platoonID + ";");
-            while (pl.next()){
-                students.add(new Student(pl.getInt(1),pl.getString(2),TMPData.platoonID));
+            while (pl.next()) {
+                students.add(new Student(pl.getInt(1), pl.getString(2), TMPData.platoonID));
             }
             pl.close();
             int count = 0;
-            for (Student s:
-                 students) {
+            for (Student s :
+                    students) {
                 box.getItems().add(count + " - " + s.getName());
                 count++;
             }
@@ -64,7 +65,24 @@ public class Universal {
                 try {
                     var pli = repository.getResultSet("Select test_id from result where student_id = " +
                             students.get(Integer.parseInt(box.getValue().split(" ")[0])).getId() + ";"
-                            );
+                    );
+                    @Data
+                    class Test {
+                        private final String id;
+                        private final String name;
+                    }
+                    List<String> testID = new ArrayList<>();
+                    while (pli.next()) {
+                        testID.add(pli.getString(1));
+                    }
+                    List<Test> tests = new ArrayList<>();
+                    for (String s :
+                            testID) {
+                        pli = repository.getResultSet("Select name from test where id = " + s + ";");
+                        pli.next();
+                        tests.add(new Test(s, pli.getString(1)));
+                    }
+
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }

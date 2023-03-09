@@ -15,7 +15,7 @@ public class TeacherRepository extends BaseRepository {
 
     public Integer auth(@NotNull String... value) throws SQLException, ClassNotFoundException {
        @NotNull var res = super.getResultSet(
-                "Select * From Teacher Where name = " + "'" + value[0] + "'"
+                "Select id From teacher Where name = " + "'" + value[0] + "'"
                         + "AND password = " + "'" + value[1] + "'"
         );
        return res.next() ? res.getInt(1) : -1 ;
