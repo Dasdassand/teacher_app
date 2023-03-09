@@ -6,6 +6,9 @@ module ru.vsu.app.teacher {
     requires annotations;
     requires mysql.connector.j;
     requires java.sql;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.annotation;
+    requires com.fasterxml.jackson.databind;
 
     opens ru.vsu.app.teacher to javafx.fxml, javafx.graphics;
     opens ru.vsu.app.teacher.controllers to javafx.fxml;

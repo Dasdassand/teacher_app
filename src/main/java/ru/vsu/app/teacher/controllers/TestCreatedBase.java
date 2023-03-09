@@ -41,7 +41,7 @@ public class TestCreatedBase {
         accept.setOnAction(actionEvent -> {
             try {
                 if (version.getText().equals("")) {
-                    TMPData.version = 0;
+                    TMPData.version = 1;
                 } else {
                     TMPData.version = Integer.parseInt(version.getText());
                 }

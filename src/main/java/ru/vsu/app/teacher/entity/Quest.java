@@ -1,19 +1,22 @@
 package ru.vsu.app.teacher.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NotNull
+@NoArgsConstructor
+@AllArgsConstructor
 public class Quest {
-    private final int id;
-    private final List<Answer> answer = new ArrayList<>();
-    private final String quest;
+    private int id;
+    private List<Answer> answer = new ArrayList<>();
+    private String quest;
 
-    record Answer(String answer, boolean status) {
+   public record Answer(String answer, boolean status) {
     }
 }
 

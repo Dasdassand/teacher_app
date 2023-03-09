@@ -20,7 +20,7 @@ CREATE TABLE platoon_teacher(
 CREATE TABLE test(
     id int not null primary key auto_increment,
     version int not null,
-    password text not null
+    test text not null
 );
 CREATE TABLE student_test(
     student_id int not null references student(id)  on update cascade on delete cascade,

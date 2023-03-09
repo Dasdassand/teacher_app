@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class TeacherRepository extends BaseRepository {
 
-    public void addValue(@NotNull String... value) throws SQLException, ClassNotFoundException {
+    public void addValue(@NotNull String[] value) throws SQLException, ClassNotFoundException {
 
         super.addValue("INSERT INTO Teacher(name, password) VALUE ('" + value[0] + "', '" + value[1] + "');");
     }
