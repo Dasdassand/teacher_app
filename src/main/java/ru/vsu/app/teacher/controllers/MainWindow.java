@@ -42,6 +42,7 @@ public class MainWindow {
         assert platoons != null : "fx:id=\"platoons\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert studentsButton != null : "fx:id=\"studentsButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert test != null : "fx:id=\"test\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        textStudent.setEditable(false);
         var pl = repository.getResultSet("SELECT platoon_id FROM platoon_teacher WHERE teacher_id = " + TMPData.teacherID + ";");
         List<Integer> platoonIDList = new ArrayList<>();
         while (pl.next()) {

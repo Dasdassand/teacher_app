@@ -43,6 +43,13 @@ public class Test {
         assert remove != null : "fx:id=\"remove\" was not injected: check your FXML file 'Test.fxml'.";
         assert save != null : "fx:id=\"save\" was not injected: check your FXML file 'Test.fxml'.";
         assert send != null : "fx:id=\"send\" was not injected: check your FXML file 'Test.fxml'.";
+        create.setOnAction(actionEvent -> GlobalMethods.openWindow(
+                "Создание теста",
+                "form/TestCreatedBase.fxml",
+                "form/title.png",
+                create
+                )
+        );
 
     }
 
