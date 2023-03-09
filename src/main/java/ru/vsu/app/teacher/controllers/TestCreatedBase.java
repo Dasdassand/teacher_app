@@ -47,6 +47,12 @@ public class TestCreatedBase {
                 }
                 TMPData.time = Integer.parseInt(time.getText());
                 TMPData.count = Integer.parseInt(count.getText());
+                GlobalMethods.openWindow(
+                        "Создание теста",
+                        "form/TestCreatedFinal.fxml",
+                        "form/title.png",
+                        accept
+                );
             }catch (Exception e){
                 GlobalMethods.generateAlert("Введено не корректное значение", Alert.AlertType.ERROR);
             }
