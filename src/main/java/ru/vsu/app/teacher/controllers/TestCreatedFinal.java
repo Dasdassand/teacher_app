@@ -168,7 +168,11 @@ public class TestCreatedFinal {
 
             }
             if (countVers == TMPData.version) {
-                saveTest(quests);
+                    try {
+                        saveTest(quests);
+                    } catch (JsonProcessingException | SQLException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                 GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", accept);
             }
         });
@@ -235,8 +239,18 @@ public class TestCreatedFinal {
         four.setSelected(false);
     }
 
-    private void saveTest(List<List<Quest>> quests){
+    private void saveTest(List<List<Quest>> quests) throws JsonProcessingException, SQLException, ClassNotFoundException {
+        ObjectMapper mapper = new ObjectMapper();
+        TeacherRepository repository = new TeacherRepository();
         var test = new Test(quests);
-
+        var id = mapper.writeValueAsString(test.getId());
+        var testQuest = mapper.writeValueAsString(test.getQuests());
+        var version = test.getQuests().size();
+        System.out.println(testQuest);
+        System.out.println(test);
+        repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
+                id + "'" + "," + version + "," + "'" + testQuest + "'" +
+                "," + TMPData.time +
+                ");");
     }
 }
