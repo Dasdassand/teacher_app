@@ -1,6 +1,7 @@
 package ru.vsu.app.teacher.entity;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import java.util.UUID;
 
 @Data
 @NotNull
+@RequiredArgsConstructor
 public class Test {
     private final UUID id = UUID.randomUUID();
-    private final List<List<Quest>> quests = new ArrayList<>();
+    private final List<List<Quest>> quests;
+
 }

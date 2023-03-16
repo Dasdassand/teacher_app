@@ -59,8 +59,10 @@ public class TestCreatedFinal {
 
     @FXML
     private TextField twoAnswer;
-    private Integer countVar = -1;
+    private Integer countVar = 0;
     private Integer countVers = 0;
+    private final List<List<Quest>> quests = new ArrayList<>();
+
 
     @FXML
     void initialize() {
@@ -76,63 +78,105 @@ public class TestCreatedFinal {
         assert two != null : "fx:id=\"two\" was not injected: check your FXML file 'Untitled'.";
         assert twoAnswer != null : "fx:id=\"twoAnswer\" was not injected: check your FXML file 'Untitled'.";
 
+/**
+ AtomicInteger tmp = new AtomicInteger(0);
+ quest.setOnMouseClicked(event -> {
+ if (tmp.get() == 0) {
+ quest.setText("");
+ tmp.set(1);
+ }
+ });
+ Test test = new Test();
+ for (int i = 0; i < TMPData.count; i++) {
+ count.getItems().add(i + 1);
+ }
+ List<Quest> quests = new ArrayList<>();
+ accept.setOnAction(actionEvent -> {
+ if (countVers != TMPData.version) {
 
-        AtomicInteger tmp = new AtomicInteger(0);
-        quest.setOnMouseClicked(event -> {
-            if (tmp.get() == 0) {
-                quest.setText("");
-                tmp.set(1);
-            }
-        });
-        Test test = new Test();
+ if (countVar == -1) {
+ inz(quests);
+ countVar++;
+ }
+ if (check() && checkBox()) {
+ if (quests.get(count.getValue()).getQuest() != null) {
+ editQuest(quests);
+ } else {
+ if (countVar == TMPData.count - 1) {
+ GlobalMethods.generateAlert("После подтверждения этого вопроса вы перейдёте " +
+ "к созданию следующего варианта", Alert.AlertType.INFORMATION);
+ editQuest(quests);
+ test.getQuests().add(quests);
+ quests = new ArrayList<>();
+ inz(quests);
+ countVar = 0;
+ countVers++;
+ } else {
+ editQuest(quests);
+ countVar++;
+ }
+ }
+ } else
+ GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.ERROR);
+ } else {
+ TeacherRepository repository = new TeacherRepository();
+ try {
+ ObjectMapper mapper = new ObjectMapper();
+ repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
+ test.getId() + "'" + "," + TMPData.version + "," + "'" + mapper.writeValueAsString(test) + "'" +
+ "," + TMPData.time +
+ ");");
+ } catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
+ throw new RuntimeException(e);
+ }
+ openWindow("Главное окно", "form/MainWindow.fxml", "form/title.png", accept);
+ }
+ });
+ */
+        clear();
         for (int i = 0; i < TMPData.count; i++) {
             count.getItems().add(i + 1);
         }
+
+
+        count.setOnAction(actionEvent -> checkQuest());
+
+
+        quests.add(new ArrayList<>());
+        inz(quests.get(countVers));
+
+        count.setValue(1);
+
         accept.setOnAction(actionEvent -> {
-            if (countVers != TMPData.version) {
-                List<Quest> quests = new ArrayList<>();
-                if (countVar == -1) {
-                    inz(quests);
+            if (countVers < TMPData.version && countVar < TMPData.count - 1){
+                if (check()){
+                    editQuest(quests.get(countVers));
                     countVar++;
+                    clear();
+                }else {
+                    GlobalMethods.generateAlert("Заполнены не все поля", Alert.AlertType.ERROR);
                 }
-                if (check() && checkBox()) {
-                    if (quests.get(count.getValue()).getQuest() != null) {
-                        editQuest(quests);
-                    } else {
-                        if (countVar == TMPData.count - 1) {
-                            GlobalMethods.generateAlert("После подтверждения этого вопроса вы перейдёте " +
-                                    "к созданию следующего варианта", Alert.AlertType.INFORMATION);
-                            editQuest(quests);
-                            test.getQuests().add(quests);
-                            quests = new ArrayList<>();
-                            inz(quests);
-                            countVar = 0;
-                            countVers++;
-                        } else {
-                            editQuest(quests);
-                            countVar++;
-                        }
-                    }
-                } else
-                    GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.ERROR);
-            } else {
-                TeacherRepository repository = new TeacherRepository();
-                try {
-                    ObjectMapper mapper = new ObjectMapper();
-                    repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
-                            test.getId() + "'" + "," + TMPData.version + "," + "'" + mapper.writeValueAsString(test) + "'" +
-                            "," + TMPData.time +
-                            ");");
-                } catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
-                    throw new RuntimeException(e);
+            }else {
+                if (countVers != TMPData.version) {
+                    countVar = 0;
+                    countVers++;
+                    quests.add(new ArrayList<>());
+                    inz(quests.get(countVers));
+                    editQuest(quests.get(countVers));
+                    clear();
                 }
-                openWindow("Главное окно", "form/MainWindow.fxml", "form/title.png", accept);
+
+            }
+            if (countVers == TMPData.version) {
+                saveTest(quests);
+                GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", accept);
             }
         });
+
     }
 
     private void editQuest(List<Quest> quests) {
-        var tmpQuest = quests.get(count.getValue() - 1);
+        var tmpQuest = quests.get(count.getValue().intValue() - 1);
         tmpQuest.setQuest(quest.getText());
         List<Quest.Answer> answers = new ArrayList<>();
         answers.add(new Quest.Answer(oneAnswer.getText(), one.isSelected()));
@@ -140,21 +184,59 @@ public class TestCreatedFinal {
         answers.add(new Quest.Answer(threeAnswer.getText(), three.isSelected()));
         answers.add(new Quest.Answer(fourAnswer.getText(), four.isSelected()));
         tmpQuest.setAnswer(answers);
+        clear();
     }
 
+    private void checkQuest(){
+        if (count.getValue() <= countVar) {
+            quest.setText(quests.get(countVers).get(countVar).getQuest());
+            oneAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(0).answer());
+            twoAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(1).answer());
+            threeAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(2).answer());
+            fourAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(3).answer());
+            one.setSelected(quests.get(countVers).get(countVar).getAnswer().get(0).status());
+            two.setSelected(quests.get(countVers).get(countVar).getAnswer().get(1).status());
+            three.setSelected(quests.get(countVers).get(countVar).getAnswer().get(2).status());
+            four.setSelected(quests.get(countVers).get(countVar).getAnswer().get(3).status());
+        } else {
+            clear();
+        }
+    }
     private boolean check() {
-        return !Objects.equals(quest.getText(), "") && oneAnswer.getText() != null && twoAnswer.getText() != null
-                && threeAnswer.getText() != null && fourAnswer.getText() != null;
+        return !Objects.equals(quest.getText(), "")
+                && oneAnswer.getText() != null
+                && twoAnswer.getText() != null
+                && threeAnswer.getText() != null
+                && fourAnswer.getText() != null && (
+                one.isSelected()
+                        || two.isSelected()
+                        || three.isSelected()
+                        || four.isSelected()
+        );
     }
 
-    private boolean checkBox() {
-        return one.isSelected() || two.isSelected() || three.isSelected() || four.isSelected();
-    }
 
     private void inz(List<Quest> quests) {
         for (int i = 0; i < TMPData.count; i++) {
             quests.add(new Quest());
             quests.get(i).setId(i);
         }
+    }
+
+    private void clear() {
+        quest.setText("");
+        oneAnswer.setText("");
+        twoAnswer.setText("");
+        threeAnswer.setText("");
+        fourAnswer.setText("");
+        one.setSelected(false);
+        two.setSelected(false);
+        three.setSelected(false);
+        four.setSelected(false);
+    }
+
+    private void saveTest(List<List<Quest>> quests){
+        var test = new Test(quests);
+
     }
 }
