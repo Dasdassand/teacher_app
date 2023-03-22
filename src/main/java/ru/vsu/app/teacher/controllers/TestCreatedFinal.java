@@ -2,10 +2,7 @@ package ru.vsu.app.teacher.controllers;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -59,8 +56,8 @@ public class TestCreatedFinal {
 
     @FXML
     private TextField twoAnswer;
-    private Integer countVar = 0;
-    private Integer countVers = 0;
+    private Integer countQuest = 0;
+    private Integer countVersion = 0;
     private final List<List<Quest>> quests = new ArrayList<>();
 
 
@@ -78,111 +75,59 @@ public class TestCreatedFinal {
         assert two != null : "fx:id=\"two\" was not injected: check your FXML file 'Untitled'.";
         assert twoAnswer != null : "fx:id=\"twoAnswer\" was not injected: check your FXML file 'Untitled'.";
 
-/**
- AtomicInteger tmp = new AtomicInteger(0);
- quest.setOnMouseClicked(event -> {
- if (tmp.get() == 0) {
- quest.setText("");
- tmp.set(1);
- }
- });
- Test test = new Test();
- for (int i = 0; i < TMPData.count; i++) {
- count.getItems().add(i + 1);
- }
- List<Quest> quests = new ArrayList<>();
- accept.setOnAction(actionEvent -> {
- if (countVers != TMPData.version) {
-
- if (countVar == -1) {
- inz(quests);
- countVar++;
- }
- if (check() && checkBox()) {
- if (quests.get(count.getValue()).getQuest() != null) {
- editQuest(quests);
- } else {
- if (countVar == TMPData.count - 1) {
- GlobalMethods.generateAlert("После подтверждения этого вопроса вы перейдёте " +
- "к созданию следующего варианта", Alert.AlertType.INFORMATION);
- editQuest(quests);
- test.getQuests().add(quests);
- quests = new ArrayList<>();
- inz(quests);
- countVar = 0;
- countVers++;
- } else {
- editQuest(quests);
- countVar++;
- }
- }
- } else
- GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.ERROR);
- } else {
- TeacherRepository repository = new TeacherRepository();
- try {
- ObjectMapper mapper = new ObjectMapper();
- repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
- test.getId() + "'" + "," + TMPData.version + "," + "'" + mapper.writeValueAsString(test) + "'" +
- "," + TMPData.time +
- ");");
- } catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
- throw new RuntimeException(e);
- }
- openWindow("Главное окно", "form/MainWindow.fxml", "form/title.png", accept);
- }
- });
- */
         clear();
         for (int i = 0; i < TMPData.count; i++) {
             count.getItems().add(i + 1);
         }
-
-
         count.setOnAction(actionEvent -> checkQuest());
-
-
         quests.add(new ArrayList<>());
-        inz(quests.get(countVers));
-
+        inz(quests.get(countVersion));
         count.setValue(1);
-
         accept.setOnAction(actionEvent -> {
-            if (countVers < TMPData.version && countVar < TMPData.count - 1){
-                if (check()){
-                    editQuest(quests.get(countVers));
-                    countVar++;
+            if (countVersion < TMPData.version && countQuest < TMPData.count - 1) {
+                if (check()) {
+                    editQuest(quests.get(countVersion));
+                    countQuest++;
                     clear();
-                }else {
+                } else {
                     GlobalMethods.generateAlert("Заполнены не все поля", Alert.AlertType.ERROR);
                 }
-            }else {
-                if (countVers != TMPData.version) {
-                    countVar = 0;
-                    countVers++;
+            } else {
+                if (countVersion < TMPData.version) {
+                    editQuest(quests.get(countVersion));
+                    countQuest = 0;
+                    countVersion++;
                     quests.add(new ArrayList<>());
-                    inz(quests.get(countVers));
-                    editQuest(quests.get(countVers));
+                    inz(quests.get(countVersion));
                     clear();
                 }
 
             }
-            if (countVers == TMPData.version) {
-                    try {
-                        saveTest(quests);
-                    } catch (JsonProcessingException | SQLException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+            if (countVersion == TMPData.version) {
+                try {
+                    saveTest(quests);
+                } catch (JsonProcessingException | SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", accept);
             }
+
+
+            if (count.getValue() == TMPData.count)
+                count.setValue(1);
+            else
+                count.setValue(count.getValue() + 1);
+            clear();
         });
 
     }
 
     private void editQuest(List<Quest> quests) {
-        var tmpQuest = quests.get(count.getValue().intValue() - 1);
+        var tmpQuest = quests.get(count.getValue() - 1);
         tmpQuest.setQuest(quest.getText());
         List<Quest.Answer> answers = new ArrayList<>();
+        tmpQuest.setId(countQuest);
+        tmpQuest.setQuest(quest.getText());
         answers.add(new Quest.Answer(oneAnswer.getText(), one.isSelected()));
         answers.add(new Quest.Answer(twoAnswer.getText(), two.isSelected()));
         answers.add(new Quest.Answer(threeAnswer.getText(), three.isSelected()));
@@ -191,21 +136,22 @@ public class TestCreatedFinal {
         clear();
     }
 
-    private void checkQuest(){
-        if (count.getValue() <= countVar) {
-            quest.setText(quests.get(countVers).get(countVar).getQuest());
-            oneAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(0).answer());
-            twoAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(1).answer());
-            threeAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(2).answer());
-            fourAnswer.setText(quests.get(countVers).get(countVar).getAnswer().get(3).answer());
-            one.setSelected(quests.get(countVers).get(countVar).getAnswer().get(0).status());
-            two.setSelected(quests.get(countVers).get(countVar).getAnswer().get(1).status());
-            three.setSelected(quests.get(countVers).get(countVar).getAnswer().get(2).status());
-            four.setSelected(quests.get(countVers).get(countVar).getAnswer().get(3).status());
+    private void checkQuest() {
+        if (count.getValue() <= countQuest) {
+            quest.setText(quests.get(countVersion).get(countQuest).getQuest());
+            oneAnswer.setText(quests.get(countVersion).get(countQuest).getAnswer().get(0).answer());
+            twoAnswer.setText(quests.get(countVersion).get(countQuest).getAnswer().get(1).answer());
+            threeAnswer.setText(quests.get(countVersion).get(countQuest).getAnswer().get(2).answer());
+            fourAnswer.setText(quests.get(countVersion).get(countQuest).getAnswer().get(3).answer());
+            one.setSelected(quests.get(countVersion).get(countQuest).getAnswer().get(0).status());
+            two.setSelected(quests.get(countVersion).get(countQuest).getAnswer().get(1).status());
+            three.setSelected(quests.get(countVersion).get(countQuest).getAnswer().get(2).status());
+            four.setSelected(quests.get(countVersion).get(countQuest).getAnswer().get(3).status());
         } else {
             clear();
         }
     }
+
     private boolean check() {
         return !Objects.equals(quest.getText(), "")
                 && oneAnswer.getText() != null
@@ -223,7 +169,6 @@ public class TestCreatedFinal {
     private void inz(List<Quest> quests) {
         for (int i = 0; i < TMPData.count; i++) {
             quests.add(new Quest());
-            quests.get(i).setId(i);
         }
     }
 
@@ -242,12 +187,10 @@ public class TestCreatedFinal {
     private void saveTest(List<List<Quest>> quests) throws JsonProcessingException, SQLException, ClassNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
         TeacherRepository repository = new TeacherRepository();
-        var test = new Test(quests);
-        var id = mapper.writeValueAsString(test.getId());
-        var testQuest = mapper.writeValueAsString(test.getQuests());
-        var version = test.getQuests().size();
-        System.out.println(testQuest);
-        System.out.println(test);
+        var id = mapper.writeValueAsString(UUID.randomUUID());
+        quests.remove(quests.size()-1);
+        var testQuest = mapper.writeValueAsString(quests);
+        var version = TMPData.version;
         repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
                 id + "'" + "," + version + "," + "'" + testQuest + "'" +
                 "," + TMPData.time +
