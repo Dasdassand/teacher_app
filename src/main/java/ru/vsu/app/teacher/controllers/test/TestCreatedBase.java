@@ -1,4 +1,4 @@
-package ru.vsu.app.teacher.controllers;
+package ru.vsu.app.teacher.controllers.test;
 
 import java.net.URL;
 import java.util.Objects;
@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import ru.vsu.app.teacher.controllers.GlobalMethods;
 import ru.vsu.app.teacher.tempory.TMPData;
 
 public class TestCreatedBase {

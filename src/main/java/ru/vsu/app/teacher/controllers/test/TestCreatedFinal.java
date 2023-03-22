@@ -1,21 +1,16 @@
-package ru.vsu.app.teacher.controllers;
+package ru.vsu.app.teacher.controllers.test;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ru.vsu.app.teacher.controllers.GlobalMethods;
 import ru.vsu.app.teacher.entity.Quest;
-import ru.vsu.app.teacher.entity.Test;
 import ru.vsu.app.teacher.repository.TeacherRepository;
 import ru.vsu.app.teacher.tempory.TMPData;
-
-import static ru.vsu.app.teacher.controllers.GlobalMethods.openWindow;
-
 public class TestCreatedFinal {
 
     @FXML
@@ -58,7 +53,7 @@ public class TestCreatedFinal {
     private TextField twoAnswer;
     private Integer countQuest = 0;
     private Integer countVersion = 0;
-    private final List<List<Quest>> quests = new ArrayList<>();
+    private List<List<Quest>> quests = new ArrayList<>();
 
 
     @FXML
@@ -74,8 +69,11 @@ public class TestCreatedFinal {
         assert threeAnswer != null : "fx:id=\"threeAnswer\" was not injected: check your FXML file 'Untitled'.";
         assert two != null : "fx:id=\"two\" was not injected: check your FXML file 'Untitled'.";
         assert twoAnswer != null : "fx:id=\"twoAnswer\" was not injected: check your FXML file 'Untitled'.";
-
         clear();
+
+        if (TMPData.flagFix)
+            quests = TMPData.quests;
+
         for (int i = 0; i < TMPData.count; i++) {
             count.getItems().add(i + 1);
         }
@@ -184,11 +182,12 @@ public class TestCreatedFinal {
         four.setSelected(false);
     }
 
-    private void saveTest(List<List<Quest>> quests) throws JsonProcessingException, SQLException, ClassNotFoundException {
+    private void saveTest(List<List<Quest>> quests) throws
+            JsonProcessingException, SQLException, ClassNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
         TeacherRepository repository = new TeacherRepository();
         var id = mapper.writeValueAsString(UUID.randomUUID());
-        quests.remove(quests.size()-1);
+        quests.remove(quests.size() - 1);
         var testQuest = mapper.writeValueAsString(quests);
         var version = TMPData.version;
         repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +

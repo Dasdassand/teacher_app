@@ -17,5 +17,7 @@ module ru.vsu.app.teacher {
     exports ru.vsu.app.teacher.controllers;
     exports ru.vsu.app.teacher.file;
     opens ru.vsu.app.teacher.repository to java.sql;
+    exports ru.vsu.app.teacher.controllers.test;
+    opens ru.vsu.app.teacher.controllers.test to javafx.fxml;
 
 }

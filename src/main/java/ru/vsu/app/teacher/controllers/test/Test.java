@@ -1,9 +1,11 @@
-package ru.vsu.app.teacher.controllers;
+package ru.vsu.app.teacher.controllers.test;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import ru.vsu.app.teacher.controllers.GlobalMethods;
 
 public class Test {
 
@@ -44,10 +46,17 @@ public class Test {
         assert save != null : "fx:id=\"save\" was not injected: check your FXML file 'Test.fxml'.";
         assert send != null : "fx:id=\"send\" was not injected: check your FXML file 'Test.fxml'.";
         create.setOnAction(actionEvent -> GlobalMethods.openWindow(
-                "Создание теста",
-                "form/TestCreatedBase.fxml",
-                "form/title.png",
-                create
+                        "Создание теста",
+                        "form/TestCreatedBase.fxml",
+                        "form/title.png",
+                        create
+                )
+        );
+        edit.setOnAction(actionEvent -> GlobalMethods.openWindow(
+                        "Редактирование теста",
+                        "form/TestCreatedFinal.fxml",
+                        "form/title.png",
+                        edit
                 )
         );
 

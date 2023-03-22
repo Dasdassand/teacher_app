@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.TestCreatedFinal">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.vsu.app.teacher.controllers.test.TestCreatedFinal">
    <children>
       <ChoiceBox fx:id="count" layoutX="19.0" layoutY="43.0" prefHeight="26.0" prefWidth="80.0" />
       <TextArea fx:id="quest" layoutX="142.0" layoutY="14.0" prefHeight="84.0" prefWidth="447.0" text="Вопрос" />
