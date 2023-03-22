@@ -19,5 +19,5 @@ module ru.vsu.app.teacher {
     opens ru.vsu.app.teacher.repository to java.sql;
     exports ru.vsu.app.teacher.controllers.test;
     opens ru.vsu.app.teacher.controllers.test to javafx.fxml;
-
+    opens ru.vsu.app.teacher.entity to com.fasterxml.jackson.databind;
 }

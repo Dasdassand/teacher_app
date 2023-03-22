@@ -13,4 +13,21 @@ public class TMPData {
     public static int time;
     public static boolean flagFix = false;
     public static List<List<Quest>> quests;
+
+
+    public static String String() {
+        return "TMPData{" +
+                "teacherID=" + teacherID +
+                ", platoonID=" + platoonID +
+                ", flagUniversal=" + flagUniversal +
+                ", count=" + count +
+                ", version=" + version +
+                ", time=" + time +
+                ", flagFix=" + flagFix +
+                ", quests=" + quests +
+                ", testID='" + testID + '\'' +
+                '}';
+    }
+
+    public static String testID = "";
 }

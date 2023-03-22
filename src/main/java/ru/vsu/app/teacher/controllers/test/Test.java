@@ -54,7 +54,7 @@ public class Test {
         );
         edit.setOnAction(actionEvent -> GlobalMethods.openWindow(
                         "Редактирование теста",
-                        "form/TestCreatedFinal.fxml",
+                        "form/EnterTest.fxml",
                         "form/title.png",
                         edit
                 )
