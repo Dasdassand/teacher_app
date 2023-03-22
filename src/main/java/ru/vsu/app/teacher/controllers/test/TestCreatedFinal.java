@@ -3,14 +3,17 @@ package ru.vsu.app.teacher.controllers.test;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ru.vsu.app.teacher.controllers.GlobalMethods;
 import ru.vsu.app.teacher.entity.Quest;
+import ru.vsu.app.teacher.entity.Teacher;
 import ru.vsu.app.teacher.repository.TeacherRepository;
 import ru.vsu.app.teacher.tempory.TMPData;
+
 public class TestCreatedFinal {
 
     @FXML
@@ -54,6 +57,7 @@ public class TestCreatedFinal {
     private Integer countQuest = 0;
     private Integer countVersion = 0;
     private List<List<Quest>> quests = new ArrayList<>();
+    private int size = 0;
 
 
     @FXML
@@ -70,53 +74,11 @@ public class TestCreatedFinal {
         assert two != null : "fx:id=\"two\" was not injected: check your FXML file 'Untitled'.";
         assert twoAnswer != null : "fx:id=\"twoAnswer\" was not injected: check your FXML file 'Untitled'.";
         clear();
-
-        if (TMPData.flagFix)
-            quests = TMPData.quests;
-
-        for (int i = 0; i < TMPData.count; i++) {
-            count.getItems().add(i + 1);
+        if (!TMPData.flagFix) {
+            create();
+        } else {
+            update();
         }
-        count.setOnAction(actionEvent -> checkQuest());
-        quests.add(new ArrayList<>());
-        inz(quests.get(countVersion));
-        count.setValue(1);
-        accept.setOnAction(actionEvent -> {
-            if (countVersion < TMPData.version && countQuest < TMPData.count - 1) {
-                if (check()) {
-                    editQuest(quests.get(countVersion));
-                    countQuest++;
-                    clear();
-                } else {
-                    GlobalMethods.generateAlert("Заполнены не все поля", Alert.AlertType.ERROR);
-                }
-            } else {
-                if (countVersion < TMPData.version) {
-                    editQuest(quests.get(countVersion));
-                    countQuest = 0;
-                    countVersion++;
-                    quests.add(new ArrayList<>());
-                    inz(quests.get(countVersion));
-                    clear();
-                }
-
-            }
-            if (countVersion == TMPData.version) {
-                try {
-                    saveTest(quests);
-                } catch (JsonProcessingException | SQLException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", accept);
-            }
-
-
-            if (count.getValue() == TMPData.count)
-                count.setValue(1);
-            else
-                count.setValue(count.getValue() + 1);
-            clear();
-        });
 
     }
 
@@ -190,9 +152,113 @@ public class TestCreatedFinal {
         quests.remove(quests.size() - 1);
         var testQuest = mapper.writeValueAsString(quests);
         var version = TMPData.version;
-        repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
-                id + "'" + "," + version + "," + "'" + testQuest + "'" +
-                "," + TMPData.time +
-                ");");
+        if (!TMPData.flagFix) {
+            repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
+                    id + "'" + "," + version + "," + "'" + testQuest + "'" +
+                    "," + TMPData.time +
+                    ");");
+        } else {
+            repository.addValue("UPDATE test SET test = '" + testQuest + "' WHERE id = '" + TMPData.testID + "';");
+        }
     }
+
+    private void create() {
+        for (int i = 0; i < TMPData.count; i++) {
+            count.getItems().add(i + 1);
+        }
+        count.setOnAction(actionEvent -> checkQuest());
+        quests.add(new ArrayList<>());
+        inz(quests.get(countVersion));
+        count.setValue(1);
+        accept.setOnAction(actionEvent -> {
+            if (countVersion < TMPData.version && countQuest < TMPData.count - 1) {
+                if (check()) {
+                    editQuest(quests.get(countVersion));
+                    countQuest++;
+                    clear();
+                } else {
+                    GlobalMethods.generateAlert("Заполнены не все поля", Alert.AlertType.ERROR);
+                }
+            } else {
+                if (countVersion < TMPData.version) {
+                    editQuest(quests.get(countVersion));
+                    countQuest = 0;
+                    countVersion++;
+                    quests.add(new ArrayList<>());
+                    inz(quests.get(countVersion));
+                    clear();
+                }
+
+            }
+            if (countVersion == TMPData.version) {
+                try {
+                    saveTest(quests);
+                } catch (JsonProcessingException | SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", accept);
+            }
+
+
+            if (count.getValue() == TMPData.count)
+                count.setValue(1);
+            else
+                count.setValue(count.getValue() + 1);
+            clear();
+        });
+    }
+
+    private void checkQuest(Quest quesT) {
+        quest.setText(quesT.getQuest());
+        oneAnswer.setText(quesT.getAnswer().get(0).answer());
+        twoAnswer.setText(quesT.getAnswer().get(1).answer());
+        threeAnswer.setText(quesT.getAnswer().get(2).answer());
+        fourAnswer.setText(quesT.getAnswer().get(3).answer());
+        one.setSelected(quesT.getAnswer().get(0).status());
+        two.setSelected(quesT.getAnswer().get(1).status());
+        three.setSelected(quesT.getAnswer().get(2).status());
+        four.setSelected(quesT.getAnswer().get(3).status());
+
+    }
+
+    private void update() {
+        quests = TMPData.quests;
+        for (int i = 0; i < TMPData.count; i++) {
+            count.getItems().add(i + 1);
+        }
+        count.setValue(1);
+        checkQuest(quests.get(size).get(count.getValue() - 1));
+        count.setOnAction(actionEvent -> checkQuest(quests.get(size).get(count.getValue() - 1)));
+        accept.setOnAction(actionEvent -> {
+            if (size < quests.size() && check()) {
+                editQuest(quests.get(size));
+                if (TMPData.count == count.getValue()) {
+                    size++;
+                    if (size == quests.size()) {
+                        updateDB();
+                        GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", accept);
+                    }
+                    count.setValue(1);
+                } else count.setValue(count.getValue() + 1);
+            } else if (check())
+                GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.WARNING);
+
+        });
+
+    }
+
+    private void updateDB() {
+        TeacherRepository repository = new TeacherRepository();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            var test = mapper.writeValueAsString(quests);
+            System.out.println("/n" + "/n" + test);
+            repository.addValue("UPDATE test SET test = '" + test + "' WHERE id = '" + TMPData.testID + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

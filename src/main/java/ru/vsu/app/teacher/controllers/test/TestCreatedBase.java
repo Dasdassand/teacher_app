@@ -48,6 +48,7 @@ public class TestCreatedBase {
                 }
                 TMPData.time = Integer.parseInt(time.getText());
                 TMPData.count = Integer.parseInt(count.getText());
+                TMPData.flagFix = false;
                 GlobalMethods.openWindow(
                         "Создание теста",
                         "form/TestCreatedFinal.fxml",
