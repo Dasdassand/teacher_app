@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d42fb6a7-c5d5-470b-b929-2cffbdb6196c" name="Changes" comment="fix test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedFinal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedFinal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/file/FileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/file/FileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/file/FileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/file/FileWriter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +160,8 @@
       <workItem from="1678338947519" duration="8907000" />
       <workItem from="1678943020581" duration="5488000" />
       <workItem from="1678963979459" duration="4178000" />
-      <workItem from="1679492646519" duration="8796000" />
+      <workItem from="1679492646519" duration="9331000" />
+      <workItem from="1679548006432" duration="2840000" />
     </task>
     <task id="LOCAL-00001" summary="int">
       <created>1677669496832</created>
@@ -294,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679498174062</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fix test">
+      <created>1679508109766</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1679508109766</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

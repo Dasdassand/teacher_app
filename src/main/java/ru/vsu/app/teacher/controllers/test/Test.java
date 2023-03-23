@@ -59,6 +59,11 @@ public class Test {
                         edit
                 )
         );
+        save.setOnAction(actionEvent -> GlobalMethods.openWindow(
+                "Сохранение теста",
+                "form/SaveTest.fxml",
+                "form/title.png",
+                save));
 
     }
 
