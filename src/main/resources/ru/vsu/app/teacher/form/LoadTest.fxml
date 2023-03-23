@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0"
+            prefWidth="234.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.vsu.app.teacher.controllers.test.LoadTest">
+    <children>
+        <Button fx:id="pathButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="34.0"
+                prefWidth="203.0" text="Укажите путь"/>
+        <Button fx:id="loadButton" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" prefHeight="34.0"
+                prefWidth="203.0" text="Загрузить"/>
+    </children>
+</AnchorPane>

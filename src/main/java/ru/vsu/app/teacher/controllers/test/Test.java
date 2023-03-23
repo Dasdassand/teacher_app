@@ -64,7 +64,11 @@ public class Test {
                 "form/SaveTest.fxml",
                 "form/title.png",
                 save));
-
+        load.setOnAction(actionEvent -> GlobalMethods.openWindow(
+                "Загрузка теста",
+                "form/LoadTest.fxml",
+                "form/title.png",
+                save));
     }
 
 }
