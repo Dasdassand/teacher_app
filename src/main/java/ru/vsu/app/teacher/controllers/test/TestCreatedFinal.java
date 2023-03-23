@@ -152,14 +152,10 @@ public class TestCreatedFinal {
         quests.remove(quests.size() - 1);
         var testQuest = mapper.writeValueAsString(quests);
         var version = TMPData.version;
-        if (!TMPData.flagFix) {
             repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
                     id + "'" + "," + version + "," + "'" + testQuest + "'" +
                     "," + TMPData.time +
                     ");");
-        } else {
-            repository.addValue("UPDATE test SET test = '" + testQuest + "' WHERE id = '" + TMPData.testID + "';");
-        }
     }
 
     private void create() {

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
- abstract class BaseRepository {
+abstract class BaseRepository {
     {
         properties = new Properties();
         FileInputStream fis;
@@ -18,13 +18,14 @@ import java.util.Properties;
         }
 
     }
+
     private Connection connection;
     private Statement statement;
     private final Properties properties;
 
 
     private void openSession() throws SQLException, ClassNotFoundException {
-       // Class.forName("com.mysql.cj.jdbc.Driver");
+        // Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(properties.getProperty("url_db"), properties.getProperty("name"),
                 properties.getProperty("password"));
         statement = connection.createStatement();
@@ -37,7 +38,8 @@ import java.util.Properties;
 
     public void addValue(String query) throws SQLException, ClassNotFoundException {
         openSession();
-        statement.execute(query);
+        System.out.println(statement.execute(query));
+
     }
 
     public void close() throws SQLException {

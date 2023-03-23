@@ -2,6 +2,7 @@ package ru.vsu.app.teacher.controllers.test;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import ru.vsu.app.teacher.controllers.GlobalMethods;
 import ru.vsu.app.teacher.file.FileReader;
 import ru.vsu.app.teacher.repository.TeacherRepository;
+import ru.vsu.app.teacher.tempory.TMPData;
 
 public class LoadTest {
 
@@ -44,6 +46,20 @@ public class LoadTest {
         loadButton.setOnAction(actionEvent -> {
             if (!(test == null)) {
                 TeacherRepository repository = new TeacherRepository();
+                try {
+                    var resultSet = repository.getResultSet("Select time from test Where id = '" + test.getId() + "';");
+                    if (resultSet.next()) {
+                        repository.addValue("UPDATE test SET test = '" + test.getTest() + "' WHERE id = '" + test.getId() + "';");
+                    } else {
+                        repository.addValue("INSERT INTO test(ID, VERSION, TEST, TIME) value (" + "'" +
+                                test.getId() + "'" + "," + test.getVersion() + "," + "'" + test.getTest() + "'" +
+                                "," + test.getTime() +
+                                ");");
+                    }
+                    GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", loadButton);
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 GlobalMethods.generateAlert("Тест не выбран", Alert.AlertType.WARNING);
             }
