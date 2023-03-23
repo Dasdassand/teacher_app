@@ -88,8 +88,6 @@ public class Universal {
                 }
 
             });
-        } else {
-
         }
     }
 
