@@ -3,7 +3,7 @@ module ru.vsu.app.teacher {
     requires javafx.fxml;
     requires static lombok;
     requires netty.all;
-    requires annotations;
+    requires org.jetbrains.annotations;
     requires mysql.connector.j;
     requires java.sql;
     requires com.fasterxml.jackson.core;

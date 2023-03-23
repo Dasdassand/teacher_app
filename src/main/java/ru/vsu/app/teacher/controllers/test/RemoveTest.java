@@ -59,7 +59,7 @@ public class RemoveTest {
                     } catch (SQLException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
-                } else GlobalMethods.generateAlert("Пароль не введёг", Alert.AlertType.WARNING);
+                } else GlobalMethods.generateAlert("Пароль не введён", Alert.AlertType.WARNING);
             } else {
                 GlobalMethods.generateAlert("Тест не выбран", Alert.AlertType.WARNING);
             }

@@ -74,6 +74,10 @@ public class Test {
                 "form/RemoveTest.fxml",
                 "form/title.png",
                 remove));
+        back.setOnAction(actionEvent -> GlobalMethods.openWindow(
+                "Работа с тестом",
+                "form/Test.fxml",
+                "form/title.png", back));
     }
 
 }
