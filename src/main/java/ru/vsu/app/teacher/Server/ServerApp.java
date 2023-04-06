@@ -1,4 +1,4 @@
-package ru.vsu.app.teacher.network;
+package ru.vsu.app.teacher.Server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,15 +10,14 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
-import javax.security.auth.callback.Callback;
 import java.net.InetAddress;
 
 public class ServerApp {
     private static final int PORT = 8189;
-  //  private static final String HOST = "172.20.10.3";
+    //  private static final String HOST = "172.20.10.3";
     private Thread t;
     public ServerApp() {
-         t = new Thread(() -> {
+        t = new Thread(() -> {
             EventLoopGroup bossGroup = new NioEventLoopGroup(1);
             EventLoopGroup workerGroup = new NioEventLoopGroup();
             try {

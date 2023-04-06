@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import ru.vsu.app.teacher.Server.MainHandler.PersonChanel;
 
 public class SendTest {
 
@@ -49,7 +50,7 @@ public class SendTest {
         assert version != null : "fx:id=\"version\" was not injected: check your FXML file 'SendTest.fxml'.";
     }
 
-    public void setStudents() {
+    public void setStudents(PersonChanel personChanel) {
         //Объект Statement + Name
         //ComboBox должен обновляться при поступлении новых подключений
         //Вопрос лишь в том, как реагировать на подключение всего взвода
