@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ru.vsu.app.teacher.HelloApplication;
-
 import java.io.IOException;
 import java.util.Objects;
 

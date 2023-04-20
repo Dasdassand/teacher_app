@@ -3,14 +3,12 @@ package ru.vsu.app.teacher.controllers.test;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ru.vsu.app.teacher.controllers.GlobalMethods;
 import ru.vsu.app.teacher.entity.Quest;
-import ru.vsu.app.teacher.entity.Teacher;
 import ru.vsu.app.teacher.repository.TeacherRepository;
 import ru.vsu.app.teacher.tempory.TMPData;
 

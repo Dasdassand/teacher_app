@@ -1,7 +1,6 @@
 package ru.vsu.app.teacher.controllers.test;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

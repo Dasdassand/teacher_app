@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import ru.vsu.app.teacher.controllers.GlobalMethods;
 import ru.vsu.app.teacher.file.FileReader;
 import ru.vsu.app.teacher.repository.TeacherRepository;
-import ru.vsu.app.teacher.tempory.TMPData;
 
 public class LoadTest {
 
