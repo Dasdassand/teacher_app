@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42fb6a7-c5d5-470b-b929-2cffbdb6196c" name="Changes" comment="add server">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/entity/TestSend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/Server/MainHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/server/MainHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/Server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/server/ServerApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/SendTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/SendTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedFinal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedFinal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Quest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Quest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/tempory/TMPData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/tempory/TMPData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/entity/TestSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/entity/TestSend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ru/vsu/app/teacher/form/SendTest.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ru/vsu/app/teacher/form/SendTest.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +172,7 @@
       <workItem from="1681967441689" duration="692000" />
       <workItem from="1681968686767" duration="10000" />
       <workItem from="1681969691672" duration="10000" />
-      <workItem from="1681970444789" duration="6330000" />
+      <workItem from="1681970444789" duration="10058000" />
     </task>
     <task id="LOCAL-00001" summary="int">
       <created>1677669496832</created>
@@ -379,7 +370,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680764414809</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add server">
+      <created>1681977109380</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1681977109381</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -12,7 +12,7 @@ import java.util.List;
 @ToString
 public class TestSend {
     private final String id;
-    private List<List<Quest>> quest;
+    private final List<List<Quest>> quest;
     private final String version;
     private final String time;
 }

@@ -1,6 +1,5 @@
 package ru.vsu.app.teacher.controllers.test;
 
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,9 +50,7 @@ public class SendTest {
     @FXML
     private ComboBox<String> testID;
 
-    @FXML
-    private ComboBox<Integer> version;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @FXML
     void initialize() {
@@ -64,112 +61,124 @@ public class SendTest {
         assert send != null : "fx:id=\"send\" was not injected: check your FXML file 'SendTest.fxml'.";
         assert student != null : "fx:id=\"student\" was not injected: check your FXML file 'SendTest.fxml'.";
         assert testID != null : "fx:id=\"testID\" was not injected: check your FXML file 'SendTest.fxml'.";
-        assert version != null : "fx:id=\"version\" was not injected: check your FXML file 'SendTest.fxml'.";
         testID.getItems().add("-");
         testID.setValue("-");
         recipient.getItems().add("-");
         recipient.setValue("-");
-        version.getItems().add(-1);
-        version.setValue(-1);
         platoon.setOnMouseClicked(action -> student.setSelected(false));
         student.setOnMouseClicked(action -> platoon.setSelected(false));
         TeacherRepository repository = new TeacherRepository();
         List<TestSend> test = new ArrayList<>();
-        List<String> testBody = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
         try {
             var tests = repository.getResultSet("Select * From test");
             while (tests.next()) {
-                testID.getItems().add(tests.getString(1));
-                version.getItems().add(tests.getInt(2));
-                testBody.add(tests.getString(3));
-                test.add(new TestSend(tests.getString(1), tests.getString(2), tests.getString(4)));
+                test.add(new TestSend(tests.getString(1), mapper.readValue(tests.getString(3), new TypeReference<List<List<Quest>>>() {
+                }), tests.getString(2), tests.getString(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ObjectMapper mapper = new ObjectMapper();
-        List<List<List<Quest>>> testsFinal = new ArrayList<>();
-        var typeFactory = mapper.getTypeFactory();
-        try {
-            for (int i = 0; i < testBody.size(); i++) {
-                test.get(i).setQuest(mapper.readValue(testBody.get(i), new TypeReference<List<List<Quest>>>() {
-                }));
-            }
-            System.out.println(test.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (TestSend t :
+                test) {
+            testID.getItems().add(t.getId());
         }
 
 
         send.setOnAction(actionEvent -> {
             if (check()) {
                 if (student.isSelected()) {
-                    int index = 0;
-                    for (int i = 0; i < test.size(); i++) {
-                        if (test.get(i).getId().equals(testID.getValue()))
-                            index = i;
+                    TestSend actualTest = null;
+                    for (TestSend t :
+                            test) {
+                        if (t.getId().equals(testID.getValue()))
+                            actualTest = t;
                     }
+                    assert actualTest != null;
                     try {
-                        String s1 = "Select version From student_test where student_id = "
-                                + recipient.getValue().split(" ")[0] + " and test_id = '" + testID.getValue().toString() + "';";
-                        System.out.println(s1);
-                        var ch = repository.getResultSet(s1);
-                        List<Integer> ver = new ArrayList<>();
-                        while (ch.next()) {
-                            ver.add(ch.getInt(1));
+                        var lockedVarBD = repository.getResultSet("Select version From student_test where student_id = "
+                                + recipient.getValue().split(" ")[0]
+                                + " and test id = '" + actualTest.getId() + "';"
+                        );
+                        var lockedVar = new ArrayList<Integer>();
+                        while (lockedVarBD.next()) {
+                            lockedVar.add(lockedVarBD.getInt(1));
                         }
-                        if (ver.size() == 0) {
-                            int var = random.nextInt(Integer.parseInt(test.get(index).getVersion()) - 1);
-                            MainHandler.sendTest(recipient.getValue(), test.get(index), var);
-                            String s = "INSERT INTO student_test(student_id, test_id, result, version)" + " VALUE (" + recipient.getValue().split(" ")[0] + "," + "'" + testID.getValue() + "'," + 0 + "," + var + 1 + ");";
+                        if (lockedVar.size() == 0) {
+                            int var = random.nextInt(Integer.parseInt(actualTest.getVersion()) - 1);
+                            MainHandler.sendTest(recipient.getValue(), actualTest, var);
+                            String s = "INSERT INTO student_test(student_id, test_id, result, version)" + " VALUE (" + recipient.getValue().split(" ")[0]
+                                    + "," + "'" + testID.getValue() + "'," + 0 + "," + var + ");";
                             repository.addValue(s);
-                        }else {
-                           if (ver.size() == Integer.parseInt(test.get(index).getVersion())){
-                               GlobalMethods.generateAlert("Данный студент прошёл все варианты теста", Alert.AlertType.ERROR);
-                           }else {
-                               int tmp = -1;
-                               for (int i = 0; i < ver.size(); i++) {
-                                   if (ver.get(i) == i){
-                                       tmp = i;
-                                   }
-                               }
-                               if (tmp == -1){
-                                   tmp =  Integer.parseInt(test.get(index).getVersion());
-                               }
-                               MainHandler.sendTest(recipient.getValue(), test.get(index), tmp);
-                               String s = "INSERT INTO student_test(student_id, test_id, result, version)" + " VALUE (" + recipient.getValue().split(" ")[0] + "," + "'" + testID.getValue() + "'," + 0 + "," + tmp  + ");";
-                               repository.addValue(s);
+                        } else {
+                            if (lockedVar.size() == Integer.parseInt(actualTest.getVersion())) {
+                                GlobalMethods.generateAlert("Данный студент прошёл все варианты теста - "
+                                        + recipient.getValue().split(" ")[1], Alert.AlertType.ERROR);
+                            } else {
+                                send(repository, actualTest, lockedVar);
 
-                           }
+                            }
                         }
                     } catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
                 }
 
-
-
-
-
-
-
                 if (platoon.isSelected()) {
+                    try {
+                        var student_id = repository.getResultSet("Select id from student where platoon_id = " + TMPData.platoonID);
+                        List<String> students = new ArrayList<>();
+                        while (student_id.next()) {
+                            students.add(student_id.getString(1));
+                        }
+                        TestSend actualTest = null;
 
-
-
-
-
-
+                        for (TestSend t :
+                                test) {
+                            if (t.getId().equals(testID.getValue()))
+                                actualTest = t;
+                        }
+                        assert actualTest != null;
+                        for (String s :
+                                students) {
+                            var lockedVarBD = repository.getResultSet("Select version From student_test where student_id = "
+                                    + s
+                                    + " and test id = '" + actualTest.getId() + "';");
+                            var lockedVar = new ArrayList<Integer>();
+                            while (lockedVarBD.next()) {
+                                lockedVar.add(lockedVarBD.getInt(1));
+                            }
+                            send(repository, actualTest, lockedVar);
+                        }
+                    } catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
 
                 }
 
 
             } else {
-               GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.ERROR);
+                GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.ERROR);
             }
         });
 
+    }
+
+    private void send(TeacherRepository repository, TestSend actualTest, ArrayList<Integer> lockedVar) throws JsonProcessingException, SQLException, ClassNotFoundException {
+        int var = -1;
+        for (int i = 0; i < Integer.parseInt(actualTest.getVersion()); i++) {
+            for (Integer j :
+                    lockedVar) {
+                if (j != i) {
+                    var = i;
+                    break;
+                }
+            }
+        }
+        MainHandler.sendTest(recipient.getValue(), actualTest, var);
+        String z = "INSERT INTO student_test(student_id, test_id, result, version)" + " VALUE (" + recipient.getValue().split(" ")[0]
+                + "," + "'" + testID.getValue() + "'," + 0 + "," + var + ");";
+        repository.addValue(z);
     }
 
     public void setStudents(PersonChanel personChanel, boolean flag) {
@@ -183,9 +192,6 @@ public class SendTest {
     private boolean check() {
         return (student.isSelected() || platoon.isSelected())
                 && !testID.getValue().equals("-")
-                && (!recipient.getValue().equals("-") || platoon.isSelected())
-                && !version.getValue().equals(-1);
+                && (!recipient.getValue().equals("-") || platoon.isSelected());
     }
-
-
 }

@@ -17,6 +17,7 @@ public class TMPData {
     public static List<List<Quest>> quests;
     public static SendTest sendTest = new SendTest();
     public static ServerApp app;
+    public static boolean flagSend = false;
 
     public static String String() {
         return "TMPData{" +
