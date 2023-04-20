@@ -1,4 +1,4 @@
-package ru.vsu.app.teacher.Server;
+package ru.vsu.app.teacher.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -14,7 +14,7 @@ import java.net.InetAddress;
 
 public class ServerApp {
     private static final int PORT = 8189;
-    //  private static final String HOST = "172.20.10.3";
+    //private static final String HOST = "172.20.12.7";
     private Thread t;
     public ServerApp() {
         t = new Thread(() -> {

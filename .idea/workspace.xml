@@ -4,14 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42fb6a7-c5d5-470b-b929-2cffbdb6196c" name="Changes" comment="add Write.java">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/Server/MainHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/Server/ServerApp.java" afterDir="false" />
+    <list default="true" id="d42fb6a7-c5d5-470b-b929-2cffbdb6196c" name="Changes" comment="add server">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/entity/TestSend.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/Server/MainHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/server/MainHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/Server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/server/ServerApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/SendTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/SendTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/network/MainHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/network/PersonChanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/network/ServerApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedFinal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedFinal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Quest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Quest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/entity/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/tempory/TMPData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/tempory/TMPData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +41,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2MPQS7lfC65tLbfsv33KxEWBDrq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -59,6 +64,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;8d788385431273d11e8b43bb78f3aa41&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -165,7 +171,17 @@
       <workItem from="1680153255304" duration="2498000" />
       <workItem from="1680171168833" duration="1222000" />
       <workItem from="1680602425013" duration="126000" />
-      <workItem from="1680759845829" duration="2544000" />
+      <workItem from="1680759845829" duration="4105000" />
+      <workItem from="1680766496277" duration="248000" />
+      <workItem from="1680766892361" duration="5895000" />
+      <workItem from="1681231790372" duration="276000" />
+      <workItem from="1681369900438" duration="6574000" />
+      <workItem from="1681380826036" duration="1172000" />
+      <workItem from="1681737902662" duration="1196000" />
+      <workItem from="1681967441689" duration="692000" />
+      <workItem from="1681968686767" duration="10000" />
+      <workItem from="1681969691672" duration="10000" />
+      <workItem from="1681970444789" duration="6330000" />
     </task>
     <task id="LOCAL-00001" summary="int">
       <created>1677669496832</created>
@@ -356,7 +372,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679572209880</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="add server">
+      <created>1680764414809</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1680764414809</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -386,7 +409,8 @@
     <MESSAGE value="upgrade lib" />
     <MESSAGE value="fix" />
     <MESSAGE value="add Write.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Write.java" />
+    <MESSAGE value="add server" />
+    <option name="LAST_COMMIT_MESSAGE" value="add server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -395,6 +419,15 @@
           <url>file://$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/controllers/test/TestCreatedBase.java</url>
           <line>53</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ru/vsu/app/teacher/server/MainHandler.java</url>
+          <line>75</line>
+          <properties class="ru.vsu.app.teacher.server.MainHandler" method="sendTest">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -2,6 +2,7 @@ package ru.vsu.app.teacher.tempory;
 
 import ru.vsu.app.teacher.controllers.test.SendTest;
 import ru.vsu.app.teacher.entity.Quest;
+import ru.vsu.app.teacher.server.ServerApp;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class TMPData {
     public static boolean flagFix = false;
     public static List<List<Quest>> quests;
     public static SendTest sendTest = new SendTest();
-
+    public static ServerApp app;
 
     public static String String() {
         return "TMPData{" +

@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ru.vsu.app.teacher.controllers.GlobalMethods;
+import ru.vsu.app.teacher.tempory.TMPData;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -22,5 +24,6 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+        TMPData.app.close();
     }
 }

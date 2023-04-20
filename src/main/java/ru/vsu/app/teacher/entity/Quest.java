@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Quest {
-    private int id;
+    private String id;
     private List<Answer> answer = new ArrayList<>();
     private String quest;
 

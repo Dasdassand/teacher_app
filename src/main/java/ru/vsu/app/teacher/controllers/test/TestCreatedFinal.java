@@ -86,7 +86,7 @@ public class TestCreatedFinal {
         var tmpQuest = quests.get(count.getValue() - 1);
         tmpQuest.setQuest(quest.getText());
         List<Quest.Answer> answers = new ArrayList<>();
-        tmpQuest.setId(countQuest);
+        tmpQuest.setId(String.valueOf(countQuest));
         tmpQuest.setQuest(quest.getText());
         answers.add(new Quest.Answer(oneAnswer.getText(), one.isSelected()));
         answers.add(new Quest.Answer(twoAnswer.getText(), two.isSelected()));
