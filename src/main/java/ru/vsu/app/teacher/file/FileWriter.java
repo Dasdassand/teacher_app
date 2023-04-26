@@ -18,6 +18,13 @@ public class FileWriter {
         }
 
     }
+    public void writeResultPlatoon(String platoonID){
+
+    }
+
+    public void writeResultStudent(String studentID){
+
+    }
 
 
 }

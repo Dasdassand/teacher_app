@@ -21,7 +21,6 @@ public class TMPData {
     public static SendTest sendTest = new SendTest();
     public static ServerApp app;
     public static boolean flagSend = true;
-    public static String idTest = "";
     public static List<StudentTest> studentTest;
     public static String String() {
         return "TMPData{" +
