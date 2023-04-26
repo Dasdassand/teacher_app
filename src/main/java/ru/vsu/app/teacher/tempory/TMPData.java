@@ -1,6 +1,9 @@
 package ru.vsu.app.teacher.tempory;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import ru.vsu.app.teacher.controllers.test.SendTest;
+import ru.vsu.app.teacher.controllers.test.entity.TestSend;
 import ru.vsu.app.teacher.entity.Quest;
 import ru.vsu.app.teacher.server.ServerApp;
 
@@ -17,8 +20,9 @@ public class TMPData {
     public static List<List<Quest>> quests;
     public static SendTest sendTest = new SendTest();
     public static ServerApp app;
-    public static boolean flagSend = false;
-
+    public static boolean flagSend = true;
+    public static String idTest = "";
+    public static List<StudentTest> studentTest;
     public static String String() {
         return "TMPData{" +
                 "teacherID=" + teacherID +
@@ -34,4 +38,13 @@ public class TMPData {
     }
 
     public static String testID = "";
+
+    @Data
+    @AllArgsConstructor
+    public static class StudentTest {
+        private String studentID;
+        private TestSend testSend;
+        private int version;
+    }
 }
+

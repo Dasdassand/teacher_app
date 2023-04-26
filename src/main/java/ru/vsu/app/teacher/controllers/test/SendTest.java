@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -85,6 +86,7 @@ public class SendTest {
 
 
         send.setOnAction(actionEvent -> {
+            TMPData.flagSend = false;
             if (check()) {
                 if (student.isSelected()) {
                     TestSend actualTest = null;
@@ -124,6 +126,8 @@ public class SendTest {
                 }
 
                 if (platoon.isSelected()) {
+                    TMPData.flagSend = true;
+                    TMPData.studentTest = new ArrayList<>();
                     try {
                         var student_id = repository.getResultSet("Select id from student where platoon_id = " + TMPData.platoonID);
                         List<String> students = new ArrayList<>();
@@ -138,29 +142,37 @@ public class SendTest {
                                 actualTest = t;
                         }
                         assert actualTest != null;
+                        var lockedVar = new ArrayList<Integer>();
+                        var free = new ArrayList<Integer>();
                         for (String s :
                                 students) {
+                            lockedVar = new ArrayList<>();
                             var lockedVarBD = repository.getResultSet("Select version From student_test where student_id = "
                                     + s
-                                    + " and test id = '" + actualTest.getId() + "';");
-                            var lockedVar = new ArrayList<Integer>();
+                                    + " and test_id = '" + actualTest.getId() + "';");
                             while (lockedVarBD.next()) {
                                 lockedVar.add(lockedVarBD.getInt(1));
                             }
-                            send(repository, actualTest, lockedVar);
+                            free.add(getFreeVersion(lockedVar, actualTest));
                         }
-                    } catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
+                        boolean b = students.size() == free.size();
+                        System.out.println(b + " Соответствие");
+                        for (int i = 0; i < students.size(); i++) {
+                            TMPData.studentTest.add(new TMPData.StudentTest(students.get(i), actualTest, free.get(i)));
+                            String z = "INSERT INTO student_test(student_id, test_id, result, version)" + " VALUE (" + students.get(i)
+                                    + "," + "'" + testID.getValue() + "'," + 0 + "," + free.get(i) + ");";
+                            repository.addValue(z);
+                        }
+                    } catch (SQLException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
 
                 }
-
-
             } else {
                 GlobalMethods.generateAlert("Введены не все значения", Alert.AlertType.ERROR);
             }
         });
-
+        back.setOnAction(actionEvent -> GlobalMethods.openWindow("Работа с тестом", "form/Test.fxml", "form/title.png", back));
     }
 
     private void send(TeacherRepository repository, TestSend actualTest, ArrayList<Integer> lockedVar) throws JsonProcessingException, SQLException, ClassNotFoundException {
@@ -192,5 +204,21 @@ public class SendTest {
         return (student.isSelected() || platoon.isSelected())
                 && !testID.getValue().equals("-")
                 && (!recipient.getValue().equals("-") || platoon.isSelected());
+    }
+
+    private Integer getFreeVersion(ArrayList<Integer> lockedVar, TestSend actualTest) {
+        int var = 0;
+        for (int i = 0; i < Integer.parseInt(actualTest.getVersion()); i++) {
+            if (!lockedVar.isEmpty()) {
+                for (Integer j :
+                        lockedVar) {
+                    if (j != i) {
+                        var = i;
+                        break;
+                    }
+                }
+            } else return random.nextInt(Integer.parseInt(actualTest.getVersion()));
+        }
+        return var;
     }
 }

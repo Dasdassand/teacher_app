@@ -12,6 +12,7 @@ import ru.vsu.app.teacher.controllers.test.entity.TestSend;
 import ru.vsu.app.teacher.entity.Quest;
 import ru.vsu.app.teacher.repository.TeacherRepository;
 import ru.vsu.app.teacher.tempory.TMPData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,18 +66,21 @@ public class MainHandler extends SimpleChannelInboundHandler<String> {
                 }
 
             }
+            if (TMPData.flagSend) {
+                sendTestPlatoon(channelHandlerContext);
+            }
         } else {
             saveResult(s);
         }
     }
 
-    public static void sendTest(String name, TestSend test, int version) throws JsonProcessingException {
+    public static void sendTest(String id, TestSend test, int version) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         var finalTest = new Test(test.getQuest().get(version), test.getTime());
         System.out.println(finalTest);
         for (PersonChanel personChanel :
                 channels) {
-            if (personChanel.name.equals(name.split(" ")[1])) {
+            if (personChanel.id.equals(id.split(" ")[0])) {
                 personChanel.channelHandlerContext.writeAndFlush(mapper.writeValueAsString(finalTest));
             }
         }
@@ -107,4 +111,25 @@ public class MainHandler extends SimpleChannelInboundHandler<String> {
         }
     }
 
+    private void sendTestPlatoon(ChannelHandlerContext context) throws JsonProcessingException {
+        if (!TMPData.studentTest.isEmpty()) {
+            if (!TMPData.flagSend) {
+                return;
+            } else {
+                for (PersonChanel channel : channels) {
+                    if (channel.getChannelHandlerContext().equals(context)) {
+                        var index = 0;
+                        for (int j = 0; j < TMPData.studentTest.size(); j++) {
+                            if (TMPData.studentTest.get(j).getStudentID().equals(channel.name)) {
+                                index = j;
+                            }
+                        }
+                        sendTest(channel.id + " " + channel.name, TMPData.studentTest.get(index).getTestSend(),
+                                TMPData.studentTest.get(index).getVersion());
+                    }
+                }
+            }
+        } else sendTestPlatoon(context);
+
+    }
 }
